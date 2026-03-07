@@ -1,5 +1,6 @@
-package br.com.meuprojeto.cadastropessoas;
+package br.com.meuprojeto.cadastropessoas.Pessoas.Controller.Service;
 
+import br.com.meuprojeto.cadastropessoas.Tarefas.MissoesModel;
 import jakarta.persistence.*;
 
 @Entity //Transforma uma classe em uma entidade do BD
@@ -9,9 +10,17 @@ public class PessoaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
+
     private String email;
+
     private int idade;
+
+    //uma pessoa tem uma unica tarefa
+    @ManyToOne
+    @JoinColumn(name = "tarefas_id") //Chave estrangeira
+    private MissoesModel tarefas;
 
     public PessoaModel() {
 

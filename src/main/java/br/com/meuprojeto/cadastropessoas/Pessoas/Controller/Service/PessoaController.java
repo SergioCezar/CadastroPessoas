@@ -1,4 +1,4 @@
-package br.com.meuprojeto.cadastropessoas;
+package br.com.meuprojeto.cadastropessoas.Pessoas.Controller.Service;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
