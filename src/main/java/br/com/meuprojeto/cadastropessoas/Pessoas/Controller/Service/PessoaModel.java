@@ -2,9 +2,17 @@ package br.com.meuprojeto.cadastropessoas.Pessoas.Controller.Service;
 
 import br.com.meuprojeto.cadastropessoas.Tarefas.MissoesModel;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity //Transforma uma classe em uma entidade do BD
 @Table(name = "tb_cadastro")
+//Cria um allargs constructor e o atualiza automaticamente caso haja adicao de novos argumentos
+@AllArgsConstructor
+@NoArgsConstructor
+//Cria todos os getters e setters
+@Data
 public class PessoaModel {
 
     @Id
@@ -22,37 +30,6 @@ public class PessoaModel {
     @JoinColumn(name = "tarefas_id") //Chave estrangeira
     private MissoesModel tarefas;
 
-    public PessoaModel() {
 
-    }
 
-    public PessoaModel(String nome, String email, int idade) {
-        this.nome = nome;
-        this.email = email;
-        this.idade = idade;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
 }
