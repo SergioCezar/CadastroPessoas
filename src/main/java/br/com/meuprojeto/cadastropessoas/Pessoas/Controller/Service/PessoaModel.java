@@ -1,6 +1,7 @@
 package br.com.meuprojeto.cadastropessoas.Pessoas.Controller.Service;
 
-import br.com.meuprojeto.cadastropessoas.Tarefas.MissoesModel;
+import br.com.meuprojeto.cadastropessoas.Tarefas.TarefasModel;
+import br.com.meuprojeto.cadastropessoas.Tarefas.TarefasModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,19 +18,26 @@ public class PessoaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "nome")
     private String nome;
 
     @Column(unique = true)
     private String email;
 
+    @Column(name = "img_url")
+    private String imgUrl;
+
+    @Column(name = "idade")
     private int idade;
 
     //uma pessoa tem uma unica tarefa
     @ManyToOne
     @JoinColumn(name = "tarefas_id") //Chave estrangeira
-    private MissoesModel tarefas;
+    private TarefasModel tarefas;
 
 
 
