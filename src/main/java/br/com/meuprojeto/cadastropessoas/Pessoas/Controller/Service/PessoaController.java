@@ -32,9 +32,10 @@ public class PessoaController {
     }
 
     //Mostrar pessoa por ID
-    @GetMapping("/listarID")
-    public String mostrarTodasAsPessoasPorID(){
-        return "Mostrar pessoas por id";
+    @GetMapping("/listar/{id}")
+    //PathVariable: usa quando a variavel inserida pelo user será parte do caminho. Ex: localhost:8080/listar/1
+    public PessoaModel listarPessoasPorID(@PathVariable Long id){
+        return pessoaService.listarPessoaPorId(id);
     }
 
     //Alterar dados das pessoas

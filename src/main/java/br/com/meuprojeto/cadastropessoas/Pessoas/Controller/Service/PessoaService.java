@@ -3,6 +3,7 @@ package br.com.meuprojeto.cadastropessoas.Pessoas.Controller.Service;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PessoaService {
@@ -16,5 +17,12 @@ public class PessoaService {
     //Listar todas as pessoas usando JPA (transforma query de DB em métodos)
     public List<PessoaModel> listarPessoas() {
         return pessoaRepository.findAll();
+    }
+
+    //Lista todas as pessoas por ID
+    public PessoaModel listarPessoaPorId(Long id) {
+        //Optional por que pode ser que não exista o ID procurado.
+        Optional<PessoaModel> pessoaPorId = pessoaRepository.findById(id);
+        return pessoaPorId.orElse(null);
     }
 }
