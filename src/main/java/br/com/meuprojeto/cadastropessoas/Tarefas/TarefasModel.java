@@ -1,6 +1,7 @@
 package br.com.meuprojeto.cadastropessoas.Tarefas;
 
 import br.com.meuprojeto.cadastropessoas.Pessoas.Controller.Service.PessoaModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,5 +26,7 @@ public class TarefasModel {
 
     //Uma tarefa pode ter várias pessoas
     @OneToMany(mappedBy = "tarefas")
+    //Evita loop de serialização
+    @JsonIgnore
     private List<PessoaModel> pessoa;
 }
