@@ -39,9 +39,9 @@ public class PessoaController {
     }
 
     //Alterar dados das pessoas
-    @PutMapping("/alterarID")
-    public String alterarPessoasPorID(){
-        return "Alterar pessoas por id";
+    @PutMapping("/alterar/{id}")
+    public PessoaModel alterarPessoasPorID(@PathVariable Long id, @RequestBody PessoaModel pessoaAtualizada){
+        return pessoaService.atualizarPessoa(id, pessoaAtualizada);
     }
 
     //Deletar pessoa
