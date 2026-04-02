@@ -31,4 +31,9 @@ public class PessoaService {
     public PessoaModel criarPessoa(PessoaModel pessoa) {
         return pessoaRepository.save(pessoa);
     }
+
+    //Deleta uma pessoa - TEM que ser VOID
+    public void deletarPessoaPorId(Long id) {
+        pessoaRepository.deleteById(id);
+    }
 }
