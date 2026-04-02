@@ -21,8 +21,8 @@ public class PessoaController {
 
     //Adicionar pessoa
     @PostMapping("/criar")
-    public String criarPessoa(){
-        return "Pessoa criada com sucesso";
+    public PessoaModel criarPessoa(@RequestBody PessoaModel pessoa){
+        return pessoaService.criarPessoa(pessoa);
     }
 
     //Mostrar todas as pessoas
