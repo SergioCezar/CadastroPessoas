@@ -31,6 +31,9 @@ public class PessoaModel {
     @Column(name = "img_url")
     private String imgUrl;
 
+    @Column(name= "telefone")
+    private String telefone;
+
     @Column(name = "idade")
     private int idade;
 
