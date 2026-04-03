@@ -27,20 +27,20 @@ public class PessoaController {
 
     //Mostrar todas as pessoas
     @GetMapping("/listar")
-    public List<PessoaModel> listarPessoas(){
+    public List<PessoaDTO> listarPessoas(){
         return pessoaService.listarPessoas();
     }
 
     //Mostrar pessoa por ID
     @GetMapping("/listar/{id}")
     //PathVariable: usa quando a variavel inserida pelo user será parte do caminho. Ex: localhost:8080/listar/1
-    public PessoaModel listarPessoasPorID(@PathVariable Long id){
+    public PessoaDTO listarPessoasPorID(@PathVariable Long id){
         return pessoaService.listarPessoaPorId(id);
     }
 
     //Alterar dados das pessoas
     @PutMapping("/alterar/{id}")
-    public PessoaModel alterarPessoasPorID(@PathVariable Long id, @RequestBody PessoaModel pessoaAtualizada){
+    public PessoaDTO alterarPessoasPorID(@PathVariable Long id, @RequestBody PessoaDTO pessoaAtualizada){
         return pessoaService.atualizarPessoa(id, pessoaAtualizada);
     }
 

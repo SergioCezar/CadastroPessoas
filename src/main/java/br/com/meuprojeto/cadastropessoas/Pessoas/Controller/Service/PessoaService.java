@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PessoaService {
@@ -17,15 +18,18 @@ public class PessoaService {
     }
 
     //Listar todas as pessoas usando JPA (transforma query de DB em métodos).
-    public List<PessoaModel> listarPessoas() {
-        return pessoaRepository.findAll();
+    public List<PessoaDTO> listarPessoas() {
+        List<PessoaModel> pessoas = pessoaRepository.findAll();
+        return pessoas.stream()
+                .map(pessoaMapper::map)
+                .collect(Collectors.toList());
     }
 
     //Lista todas as pessoas por ID
-    public PessoaModel listarPessoaPorId(Long id) {
+    public PessoaDTO listarPessoaPorId(Long id) {
         //Optional por que pode ser que não exista o ID procurado.
         Optional<PessoaModel> pessoaPorId = pessoaRepository.findById(id);
-        return pessoaPorId.orElse(null);
+        return pessoaPorId.map(pessoaMapper::map).orElse(null);
     }
 
     //Criar uma nova pessoa (tudo que o usuário terá que fornecer para criar uma nova pessoa está em pessoa model).
@@ -43,11 +47,15 @@ public class PessoaService {
 
     //Atualiza dados de uma pessoa
     //Precisa do ID da pessoa que é pra atualizar e, se existir, passa os detalhes da pessoa requerida.
-    public PessoaModel atualizarPessoa(Long id, PessoaModel pessoaAtualizada) {
-        if (pessoaRepository.existsById(id)) {
+    public PessoaDTO atualizarPessoa(Long id, PessoaDTO pessoaDTO) {
+        Optional<PessoaModel> pessoaExistente = pessoaRepository.findById(id);
+        if  (pessoaExistente.isPresent()) {
+            PessoaModel pessoaAtualizada = pessoaMapper.map(pessoaDTO);
             pessoaAtualizada.setId(id);
-            return pessoaRepository.save(pessoaAtualizada);
-        };
+            PessoaModel pessoaSalva = pessoaRepository.save(pessoaAtualizada);
+            return pessoaMapper.map(pessoaSalva);
+        }
         return null;
     }
-}
+
+    }
