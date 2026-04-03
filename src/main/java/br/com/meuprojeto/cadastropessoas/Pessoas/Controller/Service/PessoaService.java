@@ -9,9 +9,11 @@ import java.util.Optional;
 public class PessoaService {
 
     private PessoaRepository pessoaRepository;
+    private PessoaMapper pessoaMapper;
 
-    public PessoaService(PessoaRepository pessoaRepository) {
+    public PessoaService(PessoaRepository pessoaRepository, PessoaMapper pessoaMapper) {
         this.pessoaRepository = pessoaRepository;
+        this.pessoaMapper = pessoaMapper;
     }
 
     //Listar todas as pessoas usando JPA (transforma query de DB em métodos).
@@ -28,8 +30,10 @@ public class PessoaService {
 
     //Criar uma nova pessoa (tudo que o usuário terá que fornecer para criar uma nova pessoa está em pessoa model).
     //Precisa re-serializar de JSON (entrada do usuario) para uma linha na tabela do BD
-    public PessoaModel criarPessoa(PessoaModel pessoa) {
-        return pessoaRepository.save(pessoa);
+    public PessoaDTO criarPessoa(PessoaDTO pessoaDTO) {
+        PessoaModel pessoa = pessoaMapper.map(pessoaDTO);
+        pessoa = pessoaRepository.save(pessoa);
+        return pessoaMapper.map(pessoa);
     }
 
     //Deleta uma pessoa - TEM que ser VOID
