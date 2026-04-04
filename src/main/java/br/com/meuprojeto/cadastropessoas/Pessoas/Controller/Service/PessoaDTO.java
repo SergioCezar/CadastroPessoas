@@ -16,6 +16,7 @@ public class PessoaDTO {
     private String email;
     private String imgUrl;
     private int idade;
-    private TarefasModel tarefas;
     private String telefone;
+    private TarefasModel tarefas;
+
     }
