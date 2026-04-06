@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity //Transforma uma classe em uma entidade do BD
 @Table(name = "tb_cadastro")
@@ -14,6 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 //Cria todos os getters e setters
 @Data
+//Para evitar loop infinito
+@ToString(exclude = "tarefas")
 public class PessoaModel {
 
     @Id
