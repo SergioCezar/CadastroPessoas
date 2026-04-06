@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Tabela de Pessoas</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+
+</head>
+<body>
+<h1>Lista de pessoas</h1>
+<a class="btn-adicionar" th:href="@{/pessoas/ui/adicionar}">Adicionar Novo Ninja</a>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Imagem</th>
+        <th>Nome</th>
+        <th>Idade</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th>Tarefas</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each ="pessoa: ${pessoas}">
+        <td th:text="${pessoa.id}"></td>
+        <td> <img th:src="${pessoa.imgUrl}" width="100" height="100" alt="Imagem"></td>
+        <td th:text="${pessoa.nome}"></td>
+        <td th:text="${pessoa.idade}"></td>
+        <td th:text="${pessoa.email}"></td>
+        <td th:text="${pessoa.telefone}"></td>
+        <td>
+            <span th:if="${pessoa.tarefas}"><span th:text="${pessoa.tarefas.nome}"></span>, Dificuldade: <span th:text="${pessoa.tarefas.dificuldade}"></span></span>
+            <span th:if="${pessoa.tarefas == null}">Sem tarefas cadastradas para a pessoa</span>
+        </td>
+
+        <td>
+            <a th:href="@{/pessoas/ui/listar/{id}(id=${pessoa.id})}">Ver Detalhes</a>
+            <a th:href="@{/pessoas/ui/#/{id}(id=${pessoa.id})}">Alterar</a>
+            <a th:href="@{/pessoas/ui/deletar/{id}(id=${pessoa.id})}">Deletar</a>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+
+
+</body>
+</html>

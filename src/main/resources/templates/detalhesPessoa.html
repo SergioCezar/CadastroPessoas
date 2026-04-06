@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes da Pessoa</title>
+    <link rel="stylesheet" th:href="@{/css/styleDetails.css}" />
+</head>
+<body>
+<h1>Detalhes da Pessoa</h1>
+<div>
+    <img th:src="${pessoa.imgUrl}" alt="${pessoa.nome}" width="200" />
+    <h2 th:text="${pessoa.nome}"></h2>
+    <p><strong>Email:</strong> <span th:text="${pessoa.email}"></span></p>
+    <p><strong>Idade:</strong> <span th:text="${pessoa.idade}"></span></p>
+    <p><strong>Rank:</strong> <span th:text="${pessoa.telefone}"></span></p>
+
+    <h3>Tarefas:</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Dificuldade</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tarefa : ${pessoa.tarefas}">
+            <td th:text="${tarefa.nome}"></td>
+            <td th:text="${tarefa.dificuldade}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<a href="/pessoas/ui/listar">Voltar para a lista de pessoas</a>
+</body>
+</html>
