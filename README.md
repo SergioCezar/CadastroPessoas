@@ -47,7 +47,7 @@ O projeto foi estruturado utilizando o padrão de **Arquitetura em Camadas (Laye
 ### Passos para rodar localmente
 
 1. Clone o repositório:
-git clone [https://github.com/seu-usuario/CadastroPessoas.git](https://github.com/SergioCezar/CadastroPessoas.git)
+git clone https://github.com/SergioCezar/CadastroPessoas.git
 
 2. Acesse a pasta do projeto:
 cd CadastroPessoas
