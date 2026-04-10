@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes da Tarefa</title>
+    <link rel="stylesheet" th:href="@{/css/styleDetails.css}" />
+</head>
+<body>
+<h1>Detalhes da Tarefa</h1>
+
+<div>
+    <h2 th:text="${tarefa.nome}"></h2>
+    <p><strong>Dificuldade:</strong> <span th:text="${tarefa.dificuldade}"></span></p>
+
+    <h3>Pessoas:</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pessoa : ${tarefa.pessoa}">
+            <td th:text="${pessoa.nome}"></td>
+            <td th:text="${pessoa.email}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<a href="/tarefas/ui/listar">Voltar para a lista de tarefas</a>
+</body>
+</html>

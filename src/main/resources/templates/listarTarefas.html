@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Tabela de Tarefas</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+
+<h1>Lista de tarefas</h1>
+
+<a class="btn-adicionar" th:href="@{/tarefas/ui/adicionar}">Adicionar Nova Tarefa</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Dificuldade</th>
+        <th>Pessoas</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="tarefa : ${tarefas}">
+        <td th:text="${tarefa.id}"></td>
+        <td th:text="${tarefa.nome}"></td>
+        <td th:text="${tarefa.dificuldade}"></td>
+
+        <td>
+            <span th:if="${tarefa.pessoa != null and !#lists.isEmpty(tarefa.pessoa)}">
+                <span th:each="pessoa, iterStat : ${tarefa.pessoa}">
+                    <span th:text="${pessoa.nome}"></span>
+                    <span th:if="${!iterStat.last}">, </span>
+                </span>
+            </span>
+
+                    <span th:if="${tarefa.pessoa == null or #lists.isEmpty(tarefa.pessoa)}">
+                Sem pessoas associadas
+            </span>
+        </td>
+
+        <td>
+            <a th:href="@{/tarefas/ui/listar/{id}(id=${tarefa.id})}">Ver Detalhes</a>
+            <a th:href="@{/tarefas/ui/#/{id}(id=${tarefa.id})}">Alterar</a>
+            <a th:href="@{/tarefas/ui/deletar/{id}(id=${tarefa.id})}">Deletar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
