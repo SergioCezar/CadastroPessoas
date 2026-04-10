@@ -1,5 +1,7 @@
 package br.com.meuprojeto.cadastropessoas.Pessoas.Controller.Service;
 
+import br.com.meuprojeto.cadastropessoas.Tarefas.TarefasModel;
+import br.com.meuprojeto.cadastropessoas.Tarefas.TarefasRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,10 +13,12 @@ public class PessoaService {
 
     private final PessoaRepository pessoaRepository;
     private final PessoaMapper pessoaMapper;
+    private final TarefasRepository tarefaRepository;
 
-    public PessoaService(PessoaRepository pessoaRepository, PessoaMapper pessoaMapper) {
+    public PessoaService(PessoaRepository pessoaRepository, PessoaMapper pessoaMapper, TarefasRepository tarefaRepository) {
         this.pessoaRepository = pessoaRepository;
         this.pessoaMapper = pessoaMapper;
+        this.tarefaRepository = tarefaRepository;
     }
 
     //Listar todas as pessoas usando JPA (transforma query de DB em métodos).
@@ -35,7 +39,19 @@ public class PessoaService {
     //Criar uma nova pessoa (tudo que o usuário terá que fornecer para criar uma nova pessoa está em pessoa model).
     //Precisa re-serializar de JSON (entrada do usuario) para uma linha na tabela do BD
     public PessoaDTO criarPessoa(PessoaDTO pessoaDTO) {
+
         PessoaModel pessoa = pessoaMapper.map(pessoaDTO);
+
+        if (pessoaDTO.getTarefas() != null && pessoaDTO.getTarefas().getId() != null) {
+            TarefasModel tarefa = tarefaRepository
+                    .findById(pessoaDTO.getTarefas().getId())
+                    .orElse(null);
+
+            pessoa.setTarefas(tarefa);
+        } else {
+            pessoa.setTarefas(null);
+        }
+
         pessoa = pessoaRepository.save(pessoa);
         return pessoaMapper.map(pessoa);
     }
