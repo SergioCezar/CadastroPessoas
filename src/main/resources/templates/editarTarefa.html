@@ -1,0 +1,8 @@
+<form th:action="@{/tarefas/ui/atualizar/{id}(id=${tarefa.id})}"
+      th:object="${tarefa}" method="post">
+
+    <input type="text" th:field="*{nome}" />
+    <input type="text" th:field="*{dificuldade}" />
+
+    <button type="submit">Atualizar</button>
+</form>

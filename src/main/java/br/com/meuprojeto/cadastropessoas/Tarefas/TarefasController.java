@@ -127,6 +127,18 @@ public class TarefasController {
         }
     }
 
+    @PatchMapping("/alterar/{id}")
+    public ResponseEntity<?> atualizarParcial(@PathVariable Long id,
+                                              @RequestBody TarefasDTO dto) {
+
+        TarefasDTO tarefa = tarefaService.atualizarParcialTarefa(id, dto);
+
+        if (tarefa != null) return ResponseEntity.ok(tarefa);
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontrada");
+    }
+
+
     // Deletar tarefa
     @DeleteMapping("/deletar/{id}")
     @Operation(

@@ -61,4 +61,24 @@ public class PessoaControllerUI {
         return "redirect:/pessoas/ui/listar";
     }
 
+    @GetMapping("/editar/{id}")
+    public String editarPessoa(@PathVariable Long id, Model model) {
+
+        PessoaDTO pessoa = pessoaService.listarPessoaPorId(id);
+
+        model.addAttribute("pessoa", pessoa);
+        model.addAttribute("tarefas", tarefaService.listarTarefas());
+
+        return "editarPessoa";
+    }
+
+    @PostMapping("/atualizar/{id}")
+    public String atualizarPessoa(@PathVariable Long id,
+                                  @ModelAttribute PessoaDTO pessoa) {
+
+        pessoaService.atualizarPessoa(id, pessoa);
+
+        return "redirect:/pessoas/ui/listar";
+    }
+
 }

@@ -65,13 +65,48 @@ public class PessoaService {
     //Precisa do ID da pessoa que é pra atualizar e, se existir, passa os detalhes da pessoa requerida.
     public PessoaDTO atualizarPessoa(Long id, PessoaDTO pessoaDTO) {
         Optional<PessoaModel> pessoaExistente = pessoaRepository.findById(id);
-        if  (pessoaExistente.isPresent()) {
+
+        if (pessoaExistente.isPresent()) {
             PessoaModel pessoaAtualizada = pessoaMapper.map(pessoaDTO);
             pessoaAtualizada.setId(id);
+
+            if (pessoaDTO.getTarefas() != null && pessoaDTO.getTarefas().getId() != null) {
+                TarefasModel tarefa = tarefaRepository
+                        .findById(pessoaDTO.getTarefas().getId())
+                        .orElse(null);
+                pessoaAtualizada.setTarefas(tarefa);
+            } else {
+                pessoaAtualizada.setTarefas(null);
+            }
+
             PessoaModel pessoaSalva = pessoaRepository.save(pessoaAtualizada);
             return pessoaMapper.map(pessoaSalva);
         }
         return null;
+    }
+
+    public PessoaDTO atualizarParcialPessoa(Long id, PessoaDTO dto) {
+
+        Optional<PessoaModel> optional = pessoaRepository.findById(id);
+
+        if (optional.isEmpty()) return null;
+
+        PessoaModel pessoa = optional.get();
+
+        if (dto.getNome() != null) pessoa.setNome(dto.getNome());
+        if (dto.getEmail() != null) pessoa.setEmail(dto.getEmail());
+        if (dto.getImgUrl() != null) pessoa.setImgUrl(dto.getImgUrl());
+        if (dto.getTelefone() != null) pessoa.setTelefone(dto.getTelefone());
+        if (dto.getIdade() != 0) pessoa.setIdade(dto.getIdade());
+
+        if (dto.getTarefas() != null && dto.getTarefas().getId() != null) {
+            TarefasModel tarefa = tarefaRepository
+                    .findById(dto.getTarefas().getId())
+                    .orElse(null);
+            pessoa.setTarefas(tarefa);
+        }
+
+        return pessoaMapper.map(pessoaRepository.save(pessoa));
     }
 
     }

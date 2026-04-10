@@ -74,4 +74,18 @@ public class TarefasService {
         }
         return null;
     }
+
+    public TarefasDTO atualizarParcialTarefa(Long id, TarefasDTO dto) {
+
+        Optional<TarefasModel> optional = tarefaRepository.findById(id);
+
+        if (optional.isEmpty()) return null;
+
+        TarefasModel tarefa = optional.get();
+
+        if (dto.getNome() != null) tarefa.setNome(dto.getNome());
+        if (dto.getDificuldade() != null) tarefa.setDificuldade(dto.getDificuldade());
+
+        return tarefaMapper.map(tarefaRepository.save(tarefa));
+    }
 }

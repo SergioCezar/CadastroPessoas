@@ -1,0 +1,19 @@
+<form th:action="@{/pessoas/ui/atualizar/{id}(id=${pessoa.id})}"
+      th:object="${pessoa}" method="post">
+
+    <input type="text" th:field="*{nome}" />
+    <input type="email" th:field="*{email}" />
+    <input type="text" th:field="*{imgUrl}" />
+    <input type="number" th:field="*{idade}" />
+    <input type="text" th:field="*{telefone}" />
+
+    <select th:field="*{tarefas.id}">
+        <option value="">Sem tarefa</option>
+        <option th:each="t : ${tarefas}"
+                th:value="${t.id}"
+                th:text="${t.nome}">
+        </option>
+    </select>
+
+    <button type="submit">Atualizar</button>
+</form>

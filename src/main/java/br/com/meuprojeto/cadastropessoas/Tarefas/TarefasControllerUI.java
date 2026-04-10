@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/tarefas/ui")
 public class TarefasControllerUI {
 
-    private TarefasService tarefaService;
+    private final TarefasService tarefaService;
 
     public TarefasControllerUI(TarefasService tarefaService) {
         this.tarefaService = tarefaService;
@@ -56,6 +56,23 @@ public class TarefasControllerUI {
     public String salvarTarefa(@ModelAttribute TarefasDTO tarefa, RedirectAttributes redirectAttributes) {
         tarefaService.criarTarefa(tarefa);
         redirectAttributes.addFlashAttribute("msg", "Tarefa adicionada com sucesso!");
+        return "redirect:/tarefas/ui/listar";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String editarTarefa(@PathVariable Long id, Model model) {
+
+        model.addAttribute("tarefa", tarefaService.listarTarefaPorId(id));
+
+        return "editarTarefa";
+    }
+
+    @PostMapping("atualizar/{id}")
+    public String atualizarTarefa(@PathVariable Long id,
+                                  @ModelAttribute TarefasDTO tarefa) {
+
+        tarefaService.atualizarTarefa(id, tarefa);
+
         return "redirect:/tarefas/ui/listar";
     }
 }

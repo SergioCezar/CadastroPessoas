@@ -148,4 +148,20 @@ public class PessoaController {
                     .body("A pessoa com o ID " + id + " não foi encontrada!");
         }
     }
+
+    @PatchMapping("/alterar/{id}")
+    @Operation(summary = "Atualiza parcialmente uma pessoa")
+    public ResponseEntity<?> atualizarParcialPessoa(
+            @PathVariable Long id,
+            @RequestBody PessoaDTO pessoaDTO) {
+
+        PessoaDTO pessoaAtualizada = pessoaService.atualizarParcialPessoa(id, pessoaDTO);
+
+        if (pessoaAtualizada != null) {
+            return ResponseEntity.ok(pessoaAtualizada);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Pessoa não encontrada");
+        }
+    }
 }
