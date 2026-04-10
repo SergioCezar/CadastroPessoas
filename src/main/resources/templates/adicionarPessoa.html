@@ -24,6 +24,15 @@
         <label for="rank">Telefone:</label>
         <input type="text" id="rank" th:field="*{telefone}" />
 
+        <label for="tarefa">Tarefa:</label>
+        <select id="tarefa" th:field="*{tarefas.id}" >
+            <option value="">Sem tarefa</option>
+            <option th:each="tarefa : ${tarefas}"
+                    th:value="${tarefa.id}"
+                    th:text="${tarefa.nome}">
+            </option>
+        </select>
+
         <button type="submit">Cadastrar Pessoa</button>
     </form>
     <a th:href="@{/pessoas/ui/listar}">Voltar para a lista de pessoas</a>

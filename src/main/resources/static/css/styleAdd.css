@@ -24,7 +24,7 @@ label {
     display: block;
 }
 
-input {
+input, select {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -64,3 +64,4 @@ a {
 a:hover {
     color: #45a049;
 }
+

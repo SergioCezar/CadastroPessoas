@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>Lista de pessoas</h1>
-<a class="btn-adicionar" th:href="@{/pessoas/ui/adicionar}">Adicionar Novo Ninja</a>
+<a class="btn-adicionar" th:href="@{/pessoas/ui/adicionar}">Adicionar Nova Pessoa</a>
 <table>
     <thead>
     <tr>
@@ -30,8 +30,8 @@
         <td th:text="${pessoa.email}"></td>
         <td th:text="${pessoa.telefone}"></td>
         <td>
-            <span th:if="${pessoa.tarefas}"><span th:text="${pessoa.tarefas.nome}"></span>, Dificuldade: <span th:text="${pessoa.tarefas.dificuldade}"></span></span>
-            <span th:if="${pessoa.tarefas == null}">Sem tarefas cadastradas para a pessoa</span>
+            <span th:if="${pessoa.tarefas != null}"><span th:text="${pessoa.tarefas.nome}"></span>, Dificuldade: <span th:text="${pessoa.tarefas.dificuldade}"></span></span>
+            <span th:if="${pessoa.tarefas == null}">Sem tarefas</span>
         </td>
 
         <td>
